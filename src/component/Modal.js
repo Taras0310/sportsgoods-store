@@ -71,7 +71,7 @@ export default function Modal({open, setOpen, setGoods, toUpdateId, editable}) {
             setGoods(productsData)
         })
       }
-      console.log(toUpdateId);
+     
     return (
         <>
         <AnimatePresence>
