@@ -1,0 +1,70 @@
+.top {
+    position: fixed;
+    top: 0;
+    z-index: 20;
+    width: 100%;
+    height: 70px;
+    background-color: white;
+    border-bottom: 1px solid #000;
+    display: flex;
+    
+
+    .leftpart{
+        width: 50%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        color: rgb(190, 111, 36);
+        justify-content: center;
+        align-items: flex-start;
+
+        .caption{
+            margin-left: 50px;
+            display: flex;
+          flex-direction: column;
+          font-size: 40px;
+          font-weight: 700;
+          font-style: italic;
+          font-family: 'EB Garamond', serif;
+        }
+        .text{
+            margin-left: 50px;
+            color: #000;
+            margin-top: 10px;
+        }
+    }
+
+    .rightpart{
+        width: 50%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        
+        .list-item{
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            
+            ul{
+                height: 100%;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-right: 100px;
+                
+                 li{
+                    list-style-type: none;
+                    margin-left: 30px;
+                    .navlinks{
+                       text-decoration: none;
+                       color: #000;
+                       cursor: pointer;
+                   }
+
+                }
+            }
+        }
+    }
+
+  }
+  
