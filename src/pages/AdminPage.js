@@ -1,104 +1,90 @@
-import React, { useEffect, useState } from 'react'
-import Header from '../component/Header'
-import { db } from '../firebaseConfig'
-import Api from '../api'
-import '../component/adminPage.scss'
-import Modal from '../component/Modal'
+import React, { useEffect, useState } from "react";
+import Header from "../component/Header";
+import Api from "../api";
+import "../component/adminPage.scss";
+import Modal from "../component/Modal";
 
 export default function AdminPage() {
-  const [goods, setGoods] = useState([])
-  const [open, setOpen] = useState(false); 
-  const [editable, setEditable]= useState(false)
-  const [toUpdateId, setToUpdateId] = useState('');
-  
+  const [goods, setGoods] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [editable, setEditable] = useState(false);
+  const [toUpdateId, setToUpdateId] = useState("");
+
   useEffect(() => {
-    Api.getAllCategoryProducts().then(productsData => {
-      setGoods(productsData)
-    } )
-  }, [])
+    Api.getAllCategoryProducts().then((productsData) => {
+      setGoods(productsData);
+    });
+  }, []);
 
   const deleteProduct = (id) => {
-    Api.deleteProduct(id).then(productsData => {
-      setGoods(productsData)
-    })
-  }
+    Api.deleteProduct(id).then((productsData) => {
+      setGoods(productsData);
+    });
+  };
 
-  const openUpdateDialog = (id) => { 
-    setOpen(true); 
-    setToUpdateId(id); 
-  
-  }
+  const openUpdateDialog = (id) => {
+    setOpen(true);
+    setToUpdateId(id);
+  };
 
-
-  const openAdd = () => { 
-    setOpen(true); 
-
-    
-  }
+  const openAdd = () => {
+    setOpen(true);
+  };
 
   return (
     <>
       <Header />
-      <div className='admin-content'>
-        <table border='1'> 
+      <div className="admin-content">
+        <table border="1">
           <thead>
-            <tr> 
-                <th> 
-                    Category
-                </th> 
-                <th> 
-                    Description
-                </th>  
-                <th> 
-                    Price 
-                </th> 
-                <th> 
-                    Edit 
-                </th> 
-                <th> 
-                    Delete 
-                </th> 
+            <tr>
+              <th>Category</th>
+              <th>Description</th>
+              <th>Price</th>
+              <th>Edit</th>
+              <th>Delete</th>
             </tr>
-          </thead> 
+          </thead>
           <tbody>
-            { 
-              goods.map(item => {
-                return (
-                  <tr key={item.id}> 
-                    <td> 
-                      {item.category} 
-                    </td> 
-                    <td> 
-                      {item.description} 
-                    </td> 
-                    <td> 
-                      {item.price}$ 
-                    </td> 
-                    <td onClick={() =>{ openUpdateDialog(item.id)
-                setEditable(true)
-                }}>
-                      Edit 
-                    </td> 
-                    <td onClick={()=> deleteProduct(item.id)}> 
-                      Delete 
-                    </td> 
-                  </tr> 
-                )
-              } 
-            )}
+            {goods.map((item) => {
+              return (
+                <tr key={item.id}>
+                  <td>{item.category}</td>
+                  <td>{item.description}</td>
+                  <td>{item.price}$</td>
+                  <td
+                    onClick={() => {
+                      openUpdateDialog(item.id);
+                      setEditable(true);
+                    }}
+                  >
+                    Edit
+                  </td>
+                  <td onClick={() => deleteProduct(item.id)}>Delete</td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
         <div className="button-add">
-             <button type="submit"   onClick={() => {openAdd()
-                setEditable(false)}  } >Add Product</button> 
+          <button
+            type="submit"
+            onClick={() => {
+              openAdd();
+              setEditable(false);
+            }}
+          >
+            Add Product
+          </button>
         </div>
-        <Modal open={open}
-        setOpen={setOpen}
-        setGoods={setGoods}
-        toUpdateId={toUpdateId}
-        editable={editable}  />
-
+        <Modal
+          open={open}
+          setOpen={setOpen}
+          setGoods={setGoods}
+          toUpdateId={toUpdateId}
+          editable={editable}
+        />
       </div>
     </>
-  )
+  );
 }
