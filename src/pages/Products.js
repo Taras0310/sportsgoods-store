@@ -26,10 +26,6 @@ export default function Products() {
   function filterObj() {
     setQueryFilters({ category: queryFilters.category });
   }
-  // function clearFilter(){
-  //   setQueryFilters({})
-  //   setCurrentCategoryObject({})
-  // }
 
   return (
     <div>
