@@ -1,9 +1,8 @@
 import React, { useRef, useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 import Header from "../component/Header";
 import "../component/login.scss";
-import { useAuth } from "../contexts/AuthContext";
 
 export default function Login() {
   const [error, setError] = useState("");

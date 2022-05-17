@@ -1,8 +1,8 @@
-import { Link } from "react-router-dom";
 import React, { useState } from "react";
-import Header from "../component/Header";
-import "../component/profile.scss";
+import { Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
+import "../component/profile.scss";
+
 export default function Profile() {
   const [eror, setEror] = useState("");
   const { currentUser } = useAuth();

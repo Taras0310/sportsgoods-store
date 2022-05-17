@@ -1,10 +1,9 @@
 import React from "react";
-import Api from "../api";
-import CategoryList from "../component/CategoryList";
 import { useStore } from "../contexts/AppContext";
+import CategoryList from "../component/CategoryList";
 
 export default function Home() {
-  const { categories, setCategories } = useStore();
+  const { categories } = useStore();
 
   return (
     <div>

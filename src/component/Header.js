@@ -4,6 +4,7 @@ import { useStore } from "../contexts/AppContext";
 import { useAuth } from "../contexts/AuthContext";
 import Home from "../pages/Home";
 import "./header.scss";
+
 export default function Header() {
   const { clearFilter } = useStore();
   const { currentUser, logout, admin } = useAuth();

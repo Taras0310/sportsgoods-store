@@ -1,11 +1,10 @@
-import { getAuth } from "firebase/auth";
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState } from "react";
+import { useAuth } from "../contexts/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import "../component/registration.scss";
-import { useAuth } from "../contexts/AuthContext";
 
 export default function UpdateProfile() {
-  const { signup, currentUser, admin, updateEmail, updatePassword } = useAuth();
+  const { currentUser, admin, updateEmail, updatePassword } = useAuth();
 
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -14,15 +13,7 @@ export default function UpdateProfile() {
 
   const emailRef = useRef();
   const passwordRef = useRef();
-  const nameRef = useRef();
   const passwordConfirmRef = useRef();
-  // useEffect(() => {
-  //     console.log(currentUser, 'currentUser');
-  //     if (currentUser) {
-  //         // updateUserProfile(currentUser, nameRef.current)
-  //         currentUser.uid === admin ? navigate('/admin') : navigate('/')
-  //     }
-  // }, [currentUser])
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -53,17 +44,6 @@ export default function UpdateProfile() {
       .finally(() => {
         setLoading(false);
       });
-
-    // try{
-    //     setError('')
-    //     setLoading(true)
-    //     await signup(emailRef.current.value, passwordRef.current.value)
-    //     setLoading(false)
-
-    // } catch(error){
-    //     setError(error.message)
-    //     setLoading(false)
-    // }
   }
 
   return (

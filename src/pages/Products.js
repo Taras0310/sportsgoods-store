@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import ProductsList from "../component/ProductsList";
-import SubcategoryList from "../component/SubcategoryList";
 import { useStore } from "../contexts/AppContext";
+import ProductsList from "../component/ProductsList";
+import Header from "../component/Header";
+import SubcategoryList from "../component/SubcategoryList";
 import Api from "../api";
 import "../component/products.scss";
-import Header from "../component/Header";
 
 export default function Products() {
   const [products, setProducts] = useState(null);

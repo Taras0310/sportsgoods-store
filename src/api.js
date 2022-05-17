@@ -10,8 +10,6 @@ import {
   addDoc,
   updateDoc,
 } from "firebase/firestore";
-import { useState } from "react";
-import { useStore } from "./contexts/AppContext";
 
 const productsRef = collection(db, "products");
 const categoriesRef = collection(db, "categories");

@@ -1,23 +1,17 @@
-import React, { useEffect } from "react";
-import {
-  Routes,
-  Route,
-  Link,
-  useLocation,
-  Outlet,
-  Navigate,
-} from "react-router-dom";
+import React from "react";
+import { Routes, Route, useLocation, Outlet, Navigate } from "react-router-dom";
+import AuthProvider, { useAuth } from "./contexts/AuthContext";
+
 import Home from "./pages/Home";
 import Products from "./pages/Products";
-import "./App.css";
 import Login from "./pages/Login";
 import Registration from "./pages/Registration";
 import AdminPage from "./pages/AdminPage";
-import AuthProvider, { useAuth } from "./contexts/AuthContext";
 import Profile from "./pages/Profile";
-import Header from "./component/Header";
 import ForgotPassword from "./pages/ForgotPassword";
 import UpdateProfile from "./pages/UpdateProfile";
+
+import "./App.css";
 
 const PrivateRoutes = () => {
   const { currentUser, admin } = useAuth();
@@ -30,11 +24,6 @@ const PrivateRoutes = () => {
 };
 
 function App() {
-  // const queryObject = {
-  //   'category': 'Футбол',
-  //   'subcategory': "М'ячі"
-  // }
-
   return (
     <div className="App">
       <AuthProvider>

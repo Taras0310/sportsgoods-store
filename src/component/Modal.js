@@ -1,11 +1,10 @@
 import React from "react";
 import { useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import "./modal.scss";
-import Api from "../api";
-import { Timestamp } from "firebase/firestore";
 import { useStore } from "../contexts/AppContext";
 import MySelect from "../UI/MySelect";
+import Api from "../api";
+import "./modal.scss";
 
 export default function Modal({
   open,

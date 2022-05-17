@@ -1,11 +1,10 @@
-import { getAuth } from "firebase/auth";
 import React, { useRef, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "../component/registration.scss";
 import { useAuth } from "../contexts/AuthContext";
+import "../component/registration.scss";
 
 export default function Registration() {
-  const { signup, currentUser, admin, updateUserProfile } = useAuth();
+  const { signup, currentUser, admin } = useAuth();
 
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -19,7 +18,6 @@ export default function Registration() {
   useEffect(() => {
     console.log(currentUser, "currentUser");
     if (currentUser) {
-      // updateUserProfile(currentUser, nameRef.current)
       currentUser.uid === admin ? navigate("/admin") : navigate("/");
     }
   }, [currentUser]);

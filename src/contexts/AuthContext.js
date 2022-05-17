@@ -1,12 +1,10 @@
-import React, { useState, useEffect, useContext, useRef } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { auth } from "../firebaseConfig";
 import {
   createUserWithEmailAndPassword,
-  getAuth,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signOut,
-  updatePhoneNumber,
   updateProfile,
 } from "firebase/auth";
 
@@ -42,13 +40,7 @@ export default function AuthProvider({ children }) {
   }
 
   function updateEmail(user, email) {
-    console.log(user, "user");
-    updateEmail(user, { email })
-      .then(() => {
-        // Email updated!
-        // ...
-      })
-      .catch((error) => {});
+    updateEmail(user, { email });
   }
 
   function updatePassword(user, password) {
@@ -65,10 +57,10 @@ export default function AuthProvider({ children }) {
 
   const value = {
     currentUser,
+    admin,
     signup,
     login,
     logout,
-    admin,
     updateUserProfile,
     resetPassword,
     updateEmail,
