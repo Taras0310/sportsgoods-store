@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Api from "../api";
 import CategoryList from "../component/CategoryList";
 import { useStore } from "../contexts/AppContext";
