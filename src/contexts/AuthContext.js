@@ -48,10 +48,7 @@ export default function AuthProvider({ children }) {
         // Email updated!
         // ...
       })
-      .catch((error) => {
-        // An error occurred
-        // ...
-      });
+      .catch((error) => {});
   }
 
   function updatePassword(user, password) {
