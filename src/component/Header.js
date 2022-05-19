@@ -7,16 +7,13 @@ import Home from "../pages/Home";
 export default function Header() {
   const { clearFilter } = useStore();
   const { currentUser, logout, admin } = useAuth();
-  const [error, setError] = useState("");
 
   async function handleLogout() {
-    setError("");
-
-    // try {
-    //   await logout();
-    // } catch {
-    //   setError("Failed to log out!");
-    // }
+    try {
+      await logout();
+    } catch {
+      alert("Failed to log out!");
+    }
   }
 
   return (

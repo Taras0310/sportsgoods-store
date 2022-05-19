@@ -38,41 +38,51 @@ export default function Registration() {
   }
 
   return (
-    <div className="sign">
+    <div className="page form-page">
       <form autoComplete="off" className="form-group" onSubmit={handleSubmit}>
-        <h2>Sign up</h2>
+        <h2 className="form-title">Sign up</h2>
         {error && <div className="error-alert">{error}</div>}
         <div className="field">
           <label htmlFor="email">
             <strong>Email</strong>
           </label>
-          <input type="email" ref={emailRef} required />
+          <input type="email" className="inp-field" ref={emailRef} required />
         </div>
         <div className="field">
           <label htmlFor="text">
             <strong>Name</strong>
           </label>
-          <input type="text" ref={nameRef} required />
+          <input type="text" className="inp-field" ref={nameRef} required />
         </div>
         <div className="field">
           <label htmlFor="passowrd">
             <strong>Password</strong>
           </label>
-          <input type="password" ref={passwordRef} required />
+          <input
+            type="password"
+            className="inp-field"
+            ref={passwordRef}
+            required
+          />
         </div>
         <div className="field">
           <label htmlFor="confirm passowrd">
             <strong>Confirm password</strong>
           </label>
-          <input type="password" ref={passwordConfirmRef} required />
+          <input
+            type="password"
+            className="inp-field"
+            ref={passwordConfirmRef}
+            required
+          />
         </div>
-        <button type="submit" className="btn">
-          SUBMIT
-        </button>
-        <span>
+        <span className="have-acc">
           Already have an account? Login
           <Link to="/login"> Here</Link>
         </span>
+        <button type="submit" className="btn-primary">
+          SUBMIT
+        </button>
       </form>
     </div>
   );

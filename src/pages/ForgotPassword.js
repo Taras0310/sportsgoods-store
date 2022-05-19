@@ -37,33 +37,29 @@ export default function ForgotPassword() {
   }
 
   return (
-    <div className="log">
-      <Header />
+    <div className="page form-page">
       <form autoComplete="off" className="form-group" onSubmit={handleSubmit}>
-        <h2>Password Reset</h2>
+        <h2 className="form-title">Password Reset</h2>
         {message && <div className="error-alert">{message}</div>}
         <div className="field">
           <label htmlFor="email">
             <strong>Email</strong>
           </label>
-          <input
-            type="email"
-            className="form-control"
-            ref={emailRef}
-            required
-          />
+          <input type="email" className="inp-field" ref={emailRef} required />
         </div>
-        <button type="submit" className="btn">
+        <button type="submit" className="btn-primary">
           Змінити пароль
         </button>
-        <span>
-          Don't have an account? Signup
-          <Link to="/registration"> Here</Link>
-        </span>
-        <span>
-          Already have an account? Login
-          <Link to="/login"> Here</Link>
-        </span>
+        <div className="have-acc">
+          <span>
+            Don't have an account? Signup
+            <Link to="/registration"> Here</Link>
+          </span>
+          <span>
+            Already have an account? Login
+            <Link to="/login"> Here</Link>
+          </span>
+        </div>
       </form>
     </div>
   );

@@ -34,34 +34,41 @@ export default function Login() {
   }
 
   return (
-    <div className="log">
-      <Header />
+    <div className="page form-page">
       <form autoComplete="off" className="form-group" onSubmit={handleSubmit}>
-        <h2>Login</h2>
+        <h2 className="form-title">Login</h2>
         {error && <div className="error-alert">{error}</div>}
         <div className="field">
           <label htmlFor="email">
             <strong>Email</strong>
           </label>
-          <input type="email" ref={emailRef} required />
+          <input type="email" className="inp-field" ref={emailRef} required />
         </div>
         <div className="field">
           <label htmlFor="passowrd">
             <strong>Password</strong>
           </label>
-          <input type="password" ref={passwordRef} required />
+          <input
+            type="password"
+            className="inp-field"
+            ref={passwordRef}
+            required
+          />
         </div>
-        <button type="submit" className="btn">
+        <button type="submit" className="btn-primary">
           Login
         </button>
-        <span>
-          Don't have an account? Signup
-          <Link to="/registration"> Here</Link>
-        </span>
-        <span>
-          Forgot Password? Click
-          <Link to="/forgotpassword"> Here</Link>
-        </span>
+
+        <div className="have-acc">
+          <span>
+            Don't have an account? Signup
+            <Link to="/registration"> Here</Link>
+          </span>
+          <span>
+            Forgot Password? Click
+            <Link to="/forgotpassword"> Here</Link>
+          </span>
+        </div>
       </form>
     </div>
   );
