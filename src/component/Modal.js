@@ -2,7 +2,7 @@ import React from "react";
 import { useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useStore } from "../contexts/AppContext";
-import MySelect from "./MySelect";
+// import MySelect from "./MySelect";
 import Api from "../api";
 
 export default function Modal({
@@ -88,12 +88,12 @@ export default function Modal({
             >
               {!editable ? (
                 <>
-                  <MySelect
+                  {/* <MySelect
                     value={categoryRef}
                     options={arrSelect}
                     className="select-form"
                     option
-                  />
+                  /> */}
 
                   <div className="field">
                     <label htmlFor="name">
