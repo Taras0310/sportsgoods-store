@@ -1,7 +1,6 @@
 import React, { useRef, useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
-import "../component/registration.scss";
 
 export default function UpdateProfile() {
   const { currentUser, admin, updateEmail, updatePassword } = useAuth();

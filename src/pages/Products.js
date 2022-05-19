@@ -1,56 +1,57 @@
 import React, { useEffect, useState } from "react";
 import { useStore } from "../contexts/AppContext";
 import ProductsList from "../component/ProductsList";
-import Header from "../component/Header";
-import SubcategoryList from "../component/SubcategoryList";
 import Api from "../api";
-import "../component/products.scss";
+import FiltersTab from "../component/FiltersTab";
+import { sortByOptions, toSelectOptions } from "../utils/utils";
 
 export default function Products() {
   const [products, setProducts] = useState(null);
-  const {
-    queryFilters,
-    currentCategoryObject,
-    setQueryFilters,
-    setCurrentCategoryObject,
-  } = useStore();
-  const [selectValue, setSelectValue] = useState("");
+  const { queryFilters, currentCategoryObject, setQueryFilters } = useStore();
+  const [selectedSort, setSelectedSort] = useState("");
+  const [selectedSubcategory, setSelectedSubcategory] = useState("");
 
   useEffect(() => {
-    Api.getProducts(queryFilters, selectValue).then((productsData) => {
+    Api.getProducts(queryFilters, selectedSort).then((productsData) => {
       setProducts(productsData);
     });
-  }, [queryFilters, selectValue]);
+  }, [queryFilters, selectedSort]);
 
-  function filterObj() {
+  function clearFilters() {
+    setSelectedSort("");
+    setSelectedSubcategory("");
     setQueryFilters({ category: queryFilters.category });
   }
 
+  function handleSubcategories(event) {
+    setSelectedSubcategory(event.target.value);
+    if (event.target.value.length > 0) {
+      setQueryFilters({ ...queryFilters, subcategory: event.target.value });
+    } else {
+      setQueryFilters({ category: queryFilters.category });
+    }
+  }
+
+  function handleSortBy(event) {
+    setSelectedSort(event.target.value);
+  }
+
   return (
-    <div>
-      <Header />
-      <div className="products-block">
+    <div className="page">
+      <div className="product-block">
         {currentCategoryObject && (
           <>
-            <SubcategoryList
-              subcategories={currentCategoryObject.subcategories}
+            <FiltersTab
+              subcategoryOptions={toSelectOptions(
+                currentCategoryObject.subcategories
+              )}
+              sortOptions={sortByOptions}
+              selectedSubcategory={selectedSubcategory}
+              selectedSort={selectedSort}
+              handleSubCategories={handleSubcategories}
+              handleSortBy={handleSortBy}
+              clearFilters={clearFilters}
             />
-            <div className="search">
-              <select
-                value={selectValue}
-                onChange={(e) => setSelectValue(e.target.value)}
-              >
-                <option disabled value="">
-                  Сортувати за
-                </option>
-                <option value="brand"> Брендами</option>
-                <option value="price">Ціною</option>
-              </select>
-              <button className="clear" onClick={filterObj}>
-                Очистити фільтр
-              </button>
-            </div>
-
             <ProductsList products={products} />
           </>
         )}

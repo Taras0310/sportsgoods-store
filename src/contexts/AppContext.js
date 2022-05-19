@@ -17,6 +17,7 @@ export default function AppProvider({ children }) {
     "current_category",
     {}
   );
+  // const [sortBy, setSortBy] = useLocalStorage("sort_by", null);
 
   useEffect(() => {
     Api.getAllCategories().then((categoriesResponse) =>
@@ -27,6 +28,7 @@ export default function AppProvider({ children }) {
   function clearFilter() {
     setQueryFilters({});
     setCurrentCategoryObject({});
+    // setSortBy(null);
   }
   const value = {
     categories,
@@ -38,6 +40,8 @@ export default function AppProvider({ children }) {
     clearFilter,
     categories,
     setCategories,
+    // sortBy,
+    // setSortBy,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

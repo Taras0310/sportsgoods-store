@@ -39,13 +39,9 @@ export default class Api {
     let queryFilters = getQueryFilters(queryObject);
     let q;
 
-    console.log(sortBy, "sortBy?");
-
     if (sortBy.length > 0) {
-      console.log("sorted");
       q = query(productsRef, ...queryFilters, orderBy(`${sortBy}`));
     } else {
-      console.log("without sort");
       q = query(productsRef, ...queryFilters);
     }
 

@@ -2,9 +2,8 @@ import React from "react";
 import { useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useStore } from "../contexts/AppContext";
-import MySelect from "../UI/MySelect";
+import MySelect from "./MySelect";
 import Api from "../api";
-import "./modal.scss";
 
 export default function Modal({
   open,
@@ -15,10 +14,7 @@ export default function Modal({
 }) {
   let arrSelect = [];
   const { categories } = useStore();
-  categories
-    ? categories.map((el) => arrSelect.push(el.name))
-    : console.log("qq");
-  console.log(arrSelect);
+  categories && categories.map((el) => arrSelect.push(el.name));
 
   const descriptionRef = useRef();
   const categoryRef = useRef();
@@ -47,9 +43,7 @@ export default function Modal({
       quantity: updateQuantityRef.current.value || null,
       name: updateNameRef.current.value || null,
     };
-    console.log(updateItemObj, "updateItemObj");
     Api.editProduct(toUpdateId, updateItemObj).then((productsData) => {
-      console.log(productsData);
       setGoods(productsData);
     });
 

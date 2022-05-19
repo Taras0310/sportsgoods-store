@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Header from "../component/Header";
 import Modal from "../component/Modal";
 import Api from "../api";
-import "../component/adminPage.scss";
 
 export default function AdminPage() {
   const [goods, setGoods] = useState([]);

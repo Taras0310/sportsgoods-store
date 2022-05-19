@@ -10,8 +10,7 @@ import AdminPage from "./pages/AdminPage";
 import Profile from "./pages/Profile";
 import ForgotPassword from "./pages/ForgotPassword";
 import UpdateProfile from "./pages/UpdateProfile";
-
-import "./App.css";
+import Header from "./component/Header";
 
 const PrivateRoutes = () => {
   const { currentUser, admin } = useAuth();
@@ -26,20 +25,20 @@ const PrivateRoutes = () => {
 function App() {
   return (
     <div className="App">
-      <AuthProvider>
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/registration" element={<Registration />} />
-          <Route path="/" element={<Home />} />
-          <Route path="/products" element={<Products />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/forgotpassword" element={<ForgotPassword />} />
-          <Route path="/update" element={<UpdateProfile />} />
-          <Route element={<PrivateRoutes />}>
-            <Route path="/admin" element={<AdminPage />} />
-          </Route>
-        </Routes>
-      </AuthProvider>
+      <Header />
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/products" element={<Products />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/forgotpassword" element={<ForgotPassword />} />
+        <Route path="/update" element={<UpdateProfile />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/registration" element={<Registration />} />
+        <Route element={<PrivateRoutes />}>
+          <Route path="/admin" element={<AdminPage />} />
+        </Route>
+      </Routes>
     </div>
   );
 }

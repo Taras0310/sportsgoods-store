@@ -24,7 +24,6 @@ export default function AuthProvider({ children }) {
   }
 
   function updateUserProfile(user, displayName) {
-    console.log(user, "user");
     updateProfile(user, { displayName: displayName });
   }
   function login(email, password) {

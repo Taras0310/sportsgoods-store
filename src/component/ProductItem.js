@@ -1,18 +1,26 @@
 import React from "react";
-import "./productsList.scss";
+import { BsCart4 } from "react-icons/bs";
 
 export default function ProductItem({ itemObj }) {
   return (
     <div className="card">
-      <img src={itemObj.img} />
-      <div className="icons">
-        <button className="btn">Додати до кошика</button>
-      </div>
-      <div className="description">
-        <h3>{itemObj.brand}</h3>
-        <div className="price">{itemObj.description}</div>
-        <div className="price">
-          <strong>{itemObj.price} $</strong>
+      {itemObj.img ? (
+        <div
+          className="card-image"
+          style={{ backgroundImage: `url(${itemObj.img})` }}
+        ></div>
+      ) : (
+        <div className="card-noimage">no image</div>
+      )}
+      <div className="card-description">
+        <h3 className="brand">{itemObj.brand}</h3>
+        <div className="name">{itemObj.description}</div>
+        <div className="description-bottom">
+          <div className="price">{itemObj.price}грн</div>
+          <button className="btn-primary">
+            в кошик
+            <BsCart4 className="icon" />
+          </button>
         </div>
       </div>
     </div>

@@ -1,7 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
-import "../component/registration.scss";
 
 export default function Registration() {
   const { signup, currentUser, admin } = useAuth();
@@ -16,7 +15,6 @@ export default function Registration() {
   const nameRef = useRef();
   const passwordConfirmRef = useRef();
   useEffect(() => {
-    console.log(currentUser, "currentUser");
     if (currentUser) {
       currentUser.uid === admin ? navigate("/admin") : navigate("/");
     }

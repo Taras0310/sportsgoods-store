@@ -1,0 +1,148 @@
+header {
+  width: 100%;
+  height: 80px;
+  background-color: $dark;
+  color: $light;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 50px;
+  position: fixed;
+
+  .logo {
+    font-size: 40px;
+  }
+
+  .menu {
+    display: flex;
+    gap: 20px;
+  }
+
+  a {
+    color: $light;
+    transition: 0.2 ease;
+
+    :hover {
+      color: $primary;
+    }
+  }
+}
+
+.page {
+  width: 100%;
+  padding-top: 80px;
+  height: 100%;
+}
+
+.category-block {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  gap: 50px;
+  padding: 50px;
+
+  .category-item {
+    display: flex;
+    align-items: flex-end;
+    padding: 10px 15px;
+    width: 400px;
+    height: 550px;
+    border-radius: 10px;
+    background-color: $primary;
+    font-size: 50px;
+
+    .category-title {
+      color: $dark;
+      font-weight: 900;
+    }
+  }
+}
+
+.product-block {
+  display: flex;
+  justify-content: center;
+}
+
+.product-list {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+  gap: 30px;
+  padding: 75px 50px;
+  max-width: 1500px;
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    height: 100%;
+    border-radius: 10px;
+    box-shadow: 0 0 20px -15px#000;
+
+    .card-image {
+      width: 100%;
+      height: 70%;
+      min-height: 300px;
+      padding-top: 50px 0;
+      background-size: auto 100%;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    .card-noimage {
+      width: 100%;
+      height: 70%;
+      min-height: 300px;
+      font-size: 50px;
+      background-color: #eee;
+      font-weight: 900;
+      color: #bbb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+    }
+
+    .card-description {
+      padding: 20px 50px;
+      border-top: 1px solid #eee;
+    }
+
+    .brand {
+      font-size: 40px;
+    }
+
+    .price {
+      font-size: 30px;
+      font-weight: 700;
+    }
+
+    .description-bottom {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0px;
+    }
+  }
+}
+
+.filters-tab {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  height: 50px;
+  padding: 0 50px;
+  gap: 20px;
+  background-color: #eee;
+  position: fixed;
+
+  .tab-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    // font-weight: 100;
+  }
+}

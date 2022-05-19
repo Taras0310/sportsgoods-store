@@ -2,7 +2,6 @@ import React, { useRef, useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import Header from "../component/Header";
-import "../component/login.scss";
 
 export default function ForgotPassword() {
   const [error, setError] = useState("");
@@ -11,7 +10,6 @@ export default function ForgotPassword() {
   const { resetPassword, admin, currentUser } = useAuth();
 
   useEffect(() => {
-    console.log(currentUser, "currentUser");
     if (currentUser) {
       currentUser.uid === admin ? navigate("/admin") : navigate("/");
     }

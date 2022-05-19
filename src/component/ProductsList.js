@@ -1,6 +1,5 @@
 import React from "react";
 import ProductItem from "./ProductItem";
-import "./productsList.scss";
 
 export default function ProductsList({ products }) {
   return (

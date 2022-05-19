@@ -6,7 +6,7 @@ export default function Home() {
   const { categories } = useStore();
 
   return (
-    <div>
+    <div className="page">
       {!categories && "Loading..."}
       {categories && <CategoryList categories={categories} />}
     </div>
