@@ -4,7 +4,6 @@ export default function Select({ options, selectedValue, onChange }) {
   return (
     <select
       className="select-control"
-      defaultValue={options[0].value}
       value={selectedValue}
       onChange={onChange}
     >
