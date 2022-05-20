@@ -22,9 +22,11 @@ export default function Profile() {
             <div
               className="user-photo"
               style={{
-                backgroundImage: `url(
-               "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Breezeicons-actions-22-im-user.svg/1200px-Breezeicons-actions-22-im-user.svg.png"
-             )`,
+                backgroundImage: `url(${
+                  userInfo.photoURL
+                    ? userInfo.photoURL
+                    : "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Breezeicons-actions-22-im-user.svg/1200px-Breezeicons-actions-22-im-user.svg.png"
+                })`,
               }}
             ></div>
             <div className="user-details">
