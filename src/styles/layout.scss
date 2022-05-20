@@ -263,6 +263,28 @@ header {
   }
 }
 
+.orders-list {
+  display: flex;
+  flex-direction: column;
+
+  .order-list-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 15px;
+    border-bottom: 1px solid #ccc;
+    transition: 0.2s ease;
+
+    &:hover {
+      background-color: #ccc;
+      cursor: pointer;
+    }
+
+    .order-price {
+      font-weight: 700;
+    }
+  }
+}
+
 .form-group {
   display: flex;
   flex-direction: column;

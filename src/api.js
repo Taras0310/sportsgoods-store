@@ -85,4 +85,30 @@ export default class Api {
     const user = await getDoc(doc(db, "users", id));
     return user;
   }
+
+  static async createOrder(userId, orderData) {
+    const userRef = doc(db, "users", userId);
+    const orderCollection = collection(userRef, "orders");
+
+    const orderRef = await addDoc(orderCollection, {
+      ...orderData,
+    });
+
+    console.log(orderRef, "asdasd");
+    console.log(orderRef.id, "id");
+
+    await updateDoc(orderRef, {
+      id: orderRef.id,
+      ...orderData,
+    });
+  }
+
+  static async getUserOrders(userId) {
+    const userRef = doc(db, "users", userId);
+    const orderCollection = collection(userRef, "orders");
+
+    const ordersSnap = await getDocs(orderCollection);
+
+    return ordersSnap.docs.map((e) => e.data());
+  }
 }

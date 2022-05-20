@@ -9,10 +9,11 @@ import Home from "../pages/Home";
 export default function Header() {
   const { clearFilter } = useStore();
   const { currentUser, logout, admin } = useAuth();
-  const { setOpenCart } = useCart();
+  const { setOpenCart, setCartProducts } = useCart();
 
   async function handleLogout() {
     try {
+      setCartProducts([]);
       await logout();
     } catch {
       alert("Failed to log out!");

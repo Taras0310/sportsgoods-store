@@ -1,9 +1,38 @@
 import React, { useEffect } from "react";
 import { useCart } from "../contexts/CartContext";
 import CartProductItem from "./CartProductItem";
+import { useAuth } from "../contexts/AuthContext";
+import Api from "../api";
 
 export default function Cart() {
-  const { openCart, setOpenCart, cartProducts, summaryPrice } = useCart();
+  const { currentUser } = useAuth();
+  const { openCart, setOpenCart, cartProducts, setCartProducts, summaryPrice } =
+    useCart();
+
+  const createOrder = async () => {
+    const orderDetails = {
+      products: cartProducts,
+      orderPrice: summaryPrice,
+    };
+
+    if (cartProducts.length === 0) {
+      alert("Ваш кошик пустий");
+      return;
+    }
+
+    await Api.createOrder(currentUser.uid, orderDetails);
+    setCartProducts([]);
+    setOpenCart(false);
+    alert("Ваша заявка прийнята. Очікуйте смс повідомлення");
+  };
+
+  const handleOrderClick = () => {
+    if (!currentUser) {
+      alert("Ви не авторизовані. Щоб зробити змовлення увійдіть в акаунт");
+    } else {
+      createOrder();
+    }
+  };
 
   return (
     openCart && (
@@ -32,9 +61,11 @@ export default function Cart() {
             <div className="cart-bottom">
               <div>
                 <div>Сумма:</div>
-                <div className="sum-price">{summaryPrice}грн</div>
+                <div className="sum-price">{summaryPrice} грн</div>
               </div>
-              <button className="btn-primary">Замовити</button>
+              <button className="btn-primary" onClick={handleOrderClick}>
+                Замовити
+              </button>
             </div>
           </div>
         </div>
