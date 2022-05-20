@@ -3,7 +3,7 @@ import { useStore } from "../contexts/AppContext";
 import ProductsList from "../component/ProductsList";
 import Api from "../api";
 import FiltersTab from "../component/FiltersTab";
-import { sortByOptions, toSelectOptions } from "../utils/utils";
+import { sortByOptions, subCategoriesToSelectOptions } from "../utils/utils";
 
 export default function Products() {
   const [products, setProducts] = useState(null);
@@ -42,7 +42,7 @@ export default function Products() {
         {currentCategoryObject && (
           <>
             <FiltersTab
-              subcategoryOptions={toSelectOptions(
+              subcategoryOptions={subCategoriesToSelectOptions(
                 currentCategoryObject.subcategories
               )}
               sortOptions={sortByOptions}

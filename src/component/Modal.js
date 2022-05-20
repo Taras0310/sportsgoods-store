@@ -1,28 +1,38 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useStore } from "../contexts/AppContext";
-// import MySelect from "./MySelect";
+import Select from "./Select";
 import Api from "../api";
+import {
+  categoriesToSelectOptions,
+  subCategoriesToSelectOptions,
+} from "../utils/utils";
+
+function getCategoryByValue(array, name) {
+  console.log(array, name);
+  return array.find((item) => item.name === name);
+}
 
 export default function Modal({
   open,
   setOpen,
   setGoods,
-  toUpdateId,
+  updatedProduct,
+  setEditable,
   editable,
 }) {
-  let arrSelect = [];
   const { categories } = useStore();
-  categories && categories.map((el) => arrSelect.push(el.name));
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedSubCategory, setSelectedSubCategory] = useState("");
+
+  const [subcategoryOptions, setSubcategoryOptions] = useState([]);
 
   const descriptionRef = useRef();
-  const categoryRef = useRef();
   const priceRef = useRef();
   const imgRef = useRef();
   const brandRef = useRef();
   const quantityRef = useRef();
-  const subcategoryRef = useRef();
   const nameRef = useRef();
 
   const updateDescriptionRef = useRef();
@@ -34,6 +44,26 @@ export default function Modal({
   const updateCategoryRef = useRef();
   const updateSubcategoryRef = useRef();
 
+  useEffect(() => {
+    if (selectedCategory.length > 0) {
+      const findedCategory = getCategoryByValue(categories, selectedCategory);
+      console.log(findedCategory.subcategories);
+      setSubcategoryOptions(
+        subCategoriesToSelectOptions(findedCategory.subcategories)
+      );
+    } else {
+      setSubcategoryOptions([]);
+    }
+  }, [selectedCategory]);
+
+  const handleSelectedCategory = (event) => {
+    setSelectedCategory(event.target.value);
+  };
+
+  const handleSelectedSubCategory = (event) => {
+    setSelectedSubCategory(event.target.value);
+  };
+
   const editTodo = () => {
     const updateItemObj = {
       description: updateDescriptionRef.current.value || null,
@@ -43,7 +73,7 @@ export default function Modal({
       quantity: updateQuantityRef.current.value || null,
       name: updateNameRef.current.value || null,
     };
-    Api.editProduct(toUpdateId, updateItemObj).then((productsData) => {
+    Api.editProduct(updatedProduct.id, updateItemObj).then((productsData) => {
       setGoods(productsData);
     });
 
@@ -53,10 +83,10 @@ export default function Modal({
   const addProductItem = () => {
     const itemObj = {
       description: descriptionRef.current.value || null,
-      category: categoryRef.current.value || null,
+      category: selectedCategory || null,
       price: priceRef.current.value || null,
       img: imgRef.current.value || null,
-      subcategory: subcategoryRef.current.value || null,
+      subcategory: selectedSubCategory || null,
       brand: brandRef.current.value || null,
       quantity: quantityRef.current.value || null,
       name: nameRef.current.value || null,
@@ -74,7 +104,10 @@ export default function Modal({
           <motion.div
             className="modal-background"
             onClick={(e) => {
-              e.target.className === "modal-background" && setOpen(false);
+              if (e.target.className === "modal-background") {
+                setOpen(false);
+                setEditable(false);
+              }
             }}
             initial={{ opacity: 1 }}
             in={{ opacity: 0 }}
@@ -88,92 +121,94 @@ export default function Modal({
             >
               {!editable ? (
                 <>
-                  {/* <MySelect
-                    value={categoryRef}
-                    options={arrSelect}
-                    className="select-form"
-                    option
-                  /> */}
-
                   <div className="field">
                     <label htmlFor="name">
-                      <strong>Enter name</strong>
+                      <strong>Category</strong>
+                    </label>
+                    <Select
+                      options={categoriesToSelectOptions(categories)}
+                      selectedValue={selectedCategory}
+                      onChange={handleSelectedCategory}
+                    />
+                  </div>
+                  <div className="field">
+                    <label htmlFor="name">
+                      <strong>Name</strong>
                     </label>
                     <input
                       type="text"
-                      className="form-control"
+                      className="inp-field"
                       ref={nameRef}
                       required
                     />
                   </div>
                   <div className="field">
                     <label htmlFor="description">
-                      <strong>Enter description</strong>
+                      <strong>Description</strong>
                     </label>
                     <input
                       type="text"
-                      className="form-control"
+                      className="inp-field"
                       ref={descriptionRef}
                       required
                     />
                   </div>
                   <div className="field">
                     <label htmlFor="price">
-                      <strong>Enter price</strong>
+                      <strong>Price</strong>
                     </label>
                     <input
                       type="number"
-                      className="form-control"
+                      className="inp-field"
                       ref={priceRef}
                       required
                     />
                   </div>
                   <div className="field">
                     <label htmlFor="price">
-                      <strong>Enter img</strong>
+                      <strong>Img</strong>
                     </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      ref={imgRef}
-                      required
-                    />
+                    <input type="text" className="inp-field" ref={imgRef} />
                   </div>
                   <div className="field">
                     <label htmlFor="price">
-                      <strong>Enter brand</strong>
+                      <strong>Brand</strong>
                     </label>
                     <input
                       type="text"
-                      className="form-control"
+                      className="inp-field"
                       ref={brandRef}
                       required
                     />
                   </div>
                   <div className="field">
                     <label htmlFor="price">
-                      <strong>Enter quantity</strong>
+                      <strong>Quantity</strong>
                     </label>
                     <input
                       type="number"
-                      className="form-control"
+                      className="inp-field"
                       ref={quantityRef}
                       required
                     />
                   </div>
                   <div className="field">
                     <label htmlFor="price">
-                      <strong>Enter subcategory</strong>
+                      <strong>Subcategory</strong>
                     </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      ref={subcategoryRef}
-                      required
+                    <Select
+                      options={subcategoryOptions}
+                      selectedValue={selectedSubCategory}
+                      onChange={handleSelectedSubCategory}
                     />
                   </div>
 
-                  <button type="submit" id="submitBtn" onClick={addProductItem}>
+                  <button
+                    type="submit"
+                    className="btn-primary"
+                    id="submitBtn"
+                    onClick={addProductItem}
+                  >
                     Add
                   </button>
                 </>
@@ -181,95 +216,109 @@ export default function Modal({
                 <>
                   <div className="field">
                     <label htmlFor="category">
-                      <strong>Enter category</strong>
+                      <strong>Category</strong>
                     </label>
                     <input
                       type="text"
-                      className="form-control"
+                      className="inp-field"
                       ref={updateCategoryRef}
-                      required
+                      value={updatedProduct.category}
+                      disabled
+                      readOnly
                     />
                   </div>
                   <div className="field">
                     <label htmlFor="name">
-                      <strong>Enter name</strong>
+                      <strong>Name</strong>
                     </label>
                     <input
                       type="text"
-                      className="form-control"
+                      className="inp-field"
+                      defaultValue={updatedProduct.name}
                       ref={updateNameRef}
                       required
                     />
                   </div>
                   <div className="field">
                     <label htmlFor="description">
-                      <strong>Enter description</strong>
+                      <strong>Description</strong>
                     </label>
                     <input
                       type="text"
-                      className="form-control"
+                      className="inp-field"
+                      defaultValue={updatedProduct.description}
                       ref={updateDescriptionRef}
                       required
                     />
                   </div>
                   <div className="field">
                     <label htmlFor="price">
-                      <strong>Enter price</strong>
+                      <strong>Price</strong>
                     </label>
                     <input
                       type="number"
-                      className="form-control"
+                      className="inp-field"
+                      defaultValue={updatedProduct.price}
                       ref={updatePriceRef}
                       required
                     />
                   </div>
                   <div className="field">
                     <label htmlFor="price">
-                      <strong>Enter img</strong>
+                      <strong>Img</strong>
                     </label>
                     <input
                       type="text"
-                      className="form-control"
+                      className="inp-field"
+                      defaultValue={updatedProduct.img}
                       ref={updateImgRef}
-                      required
                     />
                   </div>
                   <div className="field">
                     <label htmlFor="price">
-                      <strong>Enter brand</strong>
+                      <strong>Brand</strong>
                     </label>
                     <input
                       type="text"
-                      className="form-control"
+                      className="inp-field"
+                      defaultValue={updatedProduct.brand}
                       ref={updateBrandRef}
                       required
                     />
                   </div>
                   <div className="field">
                     <label htmlFor="price">
-                      <strong>Enter quantity</strong>
+                      <strong>Quantity</strong>
                     </label>
                     <input
                       type="number"
-                      className="form-control"
+                      className="inp-field"
+                      defaultValue={updatedProduct.quantity}
                       ref={updateQuantityRef}
                       required
                     />
                   </div>
                   <div className="field">
                     <label htmlFor="price">
-                      <strong>Enter subcategory</strong>
+                      <strong>Subcategory</strong>
                     </label>
                     <input
                       type="text"
-                      className="form-control"
+                      className="inp-field"
+                      value={updatedProduct.subcategory}
                       ref={updateSubcategoryRef}
-                      required
+                      disabled
+                      readOnly
                     />
                   </div>
 
-                  <button type="submit" id="submitBtn" onClick={editTodo}>
-                    Edit
+                  <button
+                    type="submit"
+                    className="btn-primary"
+                    id="submitBtn"
+                    onClick={editTodo}
+                  >
+                    Edits
                   </button>
                 </>
               )}

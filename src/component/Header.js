@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useStore } from "../contexts/AppContext";
 import { useAuth } from "../contexts/AuthContext";
+import AdminPage from "../pages/AdminPage";
 import Home from "../pages/Home";
 
 export default function Header() {
@@ -36,6 +37,9 @@ export default function Header() {
           <>
             <Link to="/" element={<Home />} onClick={clearFilter}>
               <span>Головна</span>
+            </Link>
+            <Link to="/admin" element={<AdminPage />} onClick={clearFilter}>
+              <span>Адмін панель</span>
             </Link>
             <Link to="/" className="navlinks">
               <span onClick={handleLogout}>Вихід</span>

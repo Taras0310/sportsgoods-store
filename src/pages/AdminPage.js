@@ -5,9 +5,10 @@ import Api from "../api";
 
 export default function AdminPage() {
   const [goods, setGoods] = useState([]);
+
   const [open, setOpen] = useState(false);
   const [editable, setEditable] = useState(false);
-  const [toUpdateId, setToUpdateId] = useState("");
+  const [updatedProduct, setUpdatedProduct] = useState(null);
 
   useEffect(() => {
     Api.getAllCategoryProducts().then((productsData) => {
@@ -21,9 +22,10 @@ export default function AdminPage() {
     });
   };
 
-  const openUpdateDialog = (id) => {
+  const openUpdateDialog = (item) => {
     setOpen(true);
-    setToUpdateId(id);
+    setEditable(true);
+    setUpdatedProduct(item);
   };
 
   const openAdd = () => {
@@ -31,59 +33,56 @@ export default function AdminPage() {
   };
 
   return (
-    <>
-      <Header />
-      <div className="admin-content">
-        <table border="1">
-          <thead>
-            <tr>
-              <th>Category</th>
-              <th>Description</th>
-              <th>Price</th>
-              <th>Edit</th>
-              <th>Delete</th>
-            </tr>
-          </thead>
-          <tbody>
-            {goods.map((item) => {
-              return (
-                <tr key={item.id}>
-                  <td>{item.category}</td>
-                  <td>{item.description}</td>
-                  <td>{item.price}$</td>
-                  <td
-                    onClick={() => {
-                      openUpdateDialog(item.id);
-                      setEditable(true);
-                    }}
-                  >
-                    Edit
-                  </td>
-                  <td onClick={() => deleteProduct(item.id)}>Delete</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-        <div className="button-add">
-          <button
-            type="submit"
-            onClick={() => {
-              openAdd();
-              setEditable(false);
-            }}
-          >
-            Add Product
-          </button>
-        </div>
-        <Modal
-          open={open}
-          setOpen={setOpen}
-          setGoods={setGoods}
-          toUpdateId={toUpdateId}
-          editable={editable}
-        />
+    <div className="page admin-page">
+      <div className="admin-controls">
+        <button
+          type="submit"
+          className="btn-primary"
+          onClick={() => {
+            openAdd();
+          }}
+        >
+          Add Product
+        </button>
       </div>
-    </>
+      <table className="admin-table">
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Edit</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          {goods.map((item) => {
+            return (
+              <tr key={item.id}>
+                <td>{item.category}</td>
+                <td>{item.description}</td>
+                <td>{item.price} грн</td>
+                <td
+                  onClick={() => {
+                    openUpdateDialog(item);
+                  }}
+                >
+                  Edit
+                </td>
+                <td onClick={() => deleteProduct(item.id)}>Delete</td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+      <Modal
+        open={open}
+        setOpen={setOpen}
+        setGoods={setGoods}
+        updatedProduct={updatedProduct}
+        setEditable={setEditable}
+        editable={editable}
+      />
+    </div>
   );
 }
