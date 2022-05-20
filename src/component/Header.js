@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useStore } from "../contexts/AppContext";
 import { useAuth } from "../contexts/AuthContext";
+import { useCart } from "../contexts/CartContext";
 import AdminPage from "../pages/AdminPage";
 import Home from "../pages/Home";
 
 export default function Header() {
   const { clearFilter } = useStore();
   const { currentUser, logout, admin } = useAuth();
+  const { setOpenCart } = useCart();
 
   async function handleLogout() {
     try {
@@ -54,6 +56,9 @@ export default function Header() {
               {" "}
               <span>Кабінет</span>
             </Link>
+            <a className="navlinks" onClick={() => setOpenCart(true)}>
+              <span>Кошик</span>
+            </a>
             <Link to="/" className="navlinks">
               <span onClick={handleLogout}>Вихід</span>
             </Link>

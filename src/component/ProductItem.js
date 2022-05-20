@@ -1,7 +1,10 @@
 import React from "react";
 import { BsCart4 } from "react-icons/bs";
+import { useCart } from "../contexts/CartContext";
 
 export default function ProductItem({ itemObj }) {
+  const { setOpenCart, addToCart } = useCart();
+
   return (
     <div className="card">
       {itemObj.img ? (
@@ -17,7 +20,13 @@ export default function ProductItem({ itemObj }) {
         <div className="name">{itemObj.description}</div>
         <div className="description-bottom">
           <div className="price">{itemObj.price}грн</div>
-          <button className="btn-primary">
+          <button
+            className="btn-primary"
+            onClick={() => {
+              setOpenCart(true);
+              addToCart(itemObj);
+            }}
+          >
             в кошик
             <BsCart4 className="icon" />
           </button>

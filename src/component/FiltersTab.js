@@ -11,11 +11,6 @@ export default function FiltersTab({
   handleSortBy,
   clearFilters,
 }) {
-  useEffect(() => {
-    console.log(subcategoryOptions, "subcategories");
-    console.log(sortOptions, "sort");
-  }, []);
-
   return (
     <div className="filters-tab">
       <div className="tab-item">
