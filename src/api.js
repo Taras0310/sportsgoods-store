@@ -9,6 +9,8 @@ import {
   doc,
   addDoc,
   updateDoc,
+  setDoc,
+  getDoc,
 } from "firebase/firestore";
 
 const productsRef = collection(db, "products");
@@ -71,5 +73,16 @@ export default class Api {
     });
 
     return Api.getAllCategoryProducts();
+  }
+
+  static async addUser(userData) {
+    await setDoc(doc(db, "users", userData.id), {
+      ...userData,
+    });
+  }
+
+  static async getUser(id) {
+    const user = await getDoc(doc(db, "users", id));
+    return user;
   }
 }

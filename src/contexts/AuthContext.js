@@ -27,6 +27,7 @@ export default function AuthProvider({ children }) {
   function updateUserProfile(user, displayName) {
     updateProfile(user, { displayName: displayName });
   }
+
   function login(email, password) {
     return signInWithEmailAndPassword(auth, email, password);
   }

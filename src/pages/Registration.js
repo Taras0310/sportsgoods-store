@@ -1,12 +1,12 @@
 import React, { useRef, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import Api from "../api";
 import { useAuth } from "../contexts/AuthContext";
 
 export default function Registration() {
   const { signup, currentUser, admin } = useAuth();
 
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -27,13 +27,19 @@ export default function Registration() {
     }
 
     try {
-      setError("");
-      setLoading(true);
-      await signup(emailRef.current.value, passwordRef.current.value);
-      setLoading(false);
+      const createdUser = await signup(
+        emailRef.current.value,
+        passwordRef.current.value
+      );
+      const user = {
+        id: createdUser.user.uid,
+        email: createdUser.user.email,
+        name: nameRef.current.value,
+        photoURL: createdUser.user.photoURL,
+      };
+      await Api.addUser(user);
     } catch (error) {
-      setError(error.message);
-      setLoading(false);
+      alert(error.message);
     }
   }
 
