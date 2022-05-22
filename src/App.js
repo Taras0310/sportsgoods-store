@@ -12,6 +12,7 @@ import ForgotPassword from "./pages/ForgotPassword";
 import UpdateProfile from "./pages/UpdateProfile";
 import Header from "./component/Header";
 import Cart from "./component/Cart";
+import Contact from "./pages/Contact";
 
 const PrivateRoutes = () => {
   const { currentUser, admin } = useAuth();
@@ -35,6 +36,7 @@ function App() {
         <Route path="/forgotpassword" element={<ForgotPassword />} />
         <Route path="/update" element={<UpdateProfile />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/contact" element={<Contact />} />
         <Route path="/registration" element={<Registration />} />
         <Route element={<PrivateRoutes />}>
           <Route path="/admin" element={<AdminPage />} />

@@ -33,7 +33,9 @@ export default function Cart() {
       createOrder();
     }
   };
-
+useEffect(()=>{
+  console.log(cartProducts);
+}, [cartProducts])
   return (
     openCart && (
       <div
