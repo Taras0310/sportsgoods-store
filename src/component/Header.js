@@ -29,9 +29,6 @@ export default function Header() {
             <Link to="/" element={<Home />} onClick={clearFilter}>
               <span>Головна</span>
             </Link>
-            <Link to="/contact" className="navlinks">
-              <span>Контакти</span>
-            </Link>
             <Link to="/registration" className="navlinks">
               <span>Реєстрація</span>
             </Link>
@@ -59,9 +56,6 @@ export default function Header() {
             <Link to="/profile" className="navlinks">
               {" "}
               <span>Кабінет</span>
-              <Link to="/contact" className="navlinks">
-              <span>Контакти</span>
-            </Link>
             </Link>
             <a className="navlinks" onClick={() => setOpenCart(true)}>
               <span>Кошик</span>
